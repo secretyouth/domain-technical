@@ -6,7 +6,7 @@ Technologies used:
 * Angular
 
 ### Development ###
-Clone repo and run `npm install` in the project root directory, where package.json is located.
+Fork repo and run `npm install` in the project root directory, where package.json is located.
 Run `grunt` to start up in development mode and make changes within the client directory. This will also launch a basic server to view the changes with live reload.
 
 ### Distribution ###
