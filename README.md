@@ -7,7 +7,7 @@ Technologies used:
 
 ### Development ###
 Clone repo and run `npm install` in the project root directory, where package.json is located.
-Run `grunt` to start up in development mode and make changes within the client directory.
+Run `grunt` to start up in development mode and make changes within the client directory. This will also launch a basic server to view the changes with live reload.
 
 ### Distribution ###
 To create the static files for the project run `grunt build`. This will create minified static files within the /dist folder.
