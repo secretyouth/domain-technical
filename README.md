@@ -16,4 +16,4 @@ To create the static files for the project run `grunt build`. This will create m
 
 ### Preview URL ###
 This is a manual preview URL. This is not integrated with a one click deployment.
-http://secretyouth.github.io/domain-technical-test/
+http://secretyouth.github.io/domain-technical/
