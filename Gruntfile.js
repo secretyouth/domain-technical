@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-autoprefixer');
 
     //////////////////////
     // Config
@@ -27,6 +28,13 @@ module.exports = function(grunt) {
                 src: '<%= app.client %>/components/styles/main.scss',
                 dest: '<%= app.client %>/main.css'
             }
+        },
+
+        autoprefixer: {
+            options: {
+                browsers: ['last 2 versions', 'ie 8', 'ie 9']
+            },
+            src: '<%= app.client %>/main.css'
         },
 
         //////////////////////
@@ -82,7 +90,7 @@ module.exports = function(grunt) {
                     '<%= app.client %>/components/**/*.{scss,sass}',
                     '!<%= app.client %>/components/styles/main.scss'
                 ],
-                tasks: ['injector:sass', 'libsass']
+                tasks: ['injector:sass', 'libsass', 'autoprefixer']
             },
             scripts: {
                 files: [
@@ -163,7 +171,6 @@ module.exports = function(grunt) {
                 options: {
                     transform: function(filePath) {
                         filePath = filePath.replace('/dist/', '');
-                        console.log('FILEPATH', filePath);
                         return '<script src="' + filePath + '"></script>';
                     },
                     starttag: '<!-- buildinjector:build -->',
@@ -200,7 +207,27 @@ module.exports = function(grunt) {
     //////////////////////
     // Default task(s)
     //////////////////////
-    grunt.registerTask('default', ['injector:externalScripts', 'injector:internalScripts', 'injector:sass', 'libsass', 'copy:dev', 'connect', 'watch']);
-    grunt.registerTask('build', ['copy:dist', 'injector:dist', 'uglify']);
+    grunt.registerTask('default', [
+        'injector:externalScripts',
+        'injector:internalScripts',
+        'injector:sass',
+        'libsass',
+        'autoprefixer',
+        'copy:dev',
+        'connect',
+        'watch'
+    ]);
+    
+    grunt.registerTask('build', [
+        'injector:externalScripts', 
+        'injector:internalScripts',
+        'injector:sass',
+        'libsass',
+        'autoprefixer',
+        'copy:dev',
+        'copy:dist',
+        'injector:dist',
+        'uglify'
+    ]);
 
 };
