@@ -1,0 +1,107 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title>hCard Builder | Domain Technical Test</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="http://fonts.googleapis.com/css?family=Merriweather:400,700|Merriweather+Sans:400,800,700" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-app="domainApp">
+    <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ng-controller="mainController" class="wrapper">
+        <section class="pane left-pane">
+            <h1 class="pane-title">hCard Builder</h1>
+
+            <form>
+                <h2 class="form-group-title border-bottom">Personal Details</h2>
+                <fieldset class="row">
+                    <div class="form-group">
+                        <label for="givenName">Given Name</label>
+                        <input type="text" id="givenName" ng-model="form.givenName" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input type="text" id="surname" ng-model="form.surname" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" ng-model="form.email" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" id="phone" ng-model="form.phone" maxlength="50">
+                    </div>
+                </fieldset>
+                
+                <h2 class="form-group-title border-bottom">Address</h2>
+                <fieldset class="row">
+                    <div class="form-group">
+                        <label for="houseNumber">House Name Or #</label>
+                        <input type="text" id="houseNumber" ng-model="form.houseNumber" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="street">Street</label>
+                        <input type="text" id="street" ng-model="form.street" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="suburb">Suburb</label>
+                        <input type="text" id="suburb" ng-model="form.suburb" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" ng-model="form.state" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="postcode">Postcode</label>
+                        <input type="text" id="postcode" ng-model="form.postcode" maxlength="7">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" ng-model="form.country" maxlength="50">
+                    </div>
+                </fieldset>
+                
+                <div class="form-buttons">
+                    <a class="btn">Create hCard</a>
+                </div>
+            </form>
+        </section>
+        <section class="pane right-pane">
+    
+            <div class="card-wrapper">
+                <h2 class="card-wrapper-title text-right">hCard Preview</h2>
+                <section class="card">
+                    <h3 class="card-title">{{ form.givenName }} {{ form.surname }}</h3>
+                    <div class="card-detail-group">
+                        <div class="card-detail"><span class="title">Email</span> {{ form.email }}</div>
+                        <div class="card-detail"><span class="title">Phone</span> {{ form.phone }}</div>
+                        <div class="card-detail"><span class="title">Address</span> {{ form.houseNumber + ' ' }}{{ form.street }}</div>
+                        <div class="card-detail"><span class="title"></span> {{ form.suburb + ' ' }}{{ form.state }}</div>
+                        <div class="card-detail half-width"><span class="title">Postcode</span> {{ form.postcode }}</div>
+                        <div class="card-detail half-width"><span class="title">Country</span> {{ form.country }}</div>
+                    </div>
+                </section>
+            </div>
+
+        </section>
+    </div>
+    
+    <!-- buildinjector:build -->
+    <script src="app.min.js"></script>
+    <!-- buildinjector -->
+</body>
+</html>
