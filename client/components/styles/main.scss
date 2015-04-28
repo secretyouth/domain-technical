@@ -1,5 +1,17 @@
+//////////////////////
+// Extends
+//////////////////////
+.clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+//////////////////////
 // injector
 @import '_normalize.scss';
+@import '_variables.scss';
 @import 'global.scss';
-@import 'testing.scss';
 // endinjector
+//////////////////////

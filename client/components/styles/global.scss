@@ -1,3 +1,224 @@
+//////////////////////////////////
+// Jamie Hayman					//
+//////////////////////////////////
+// 								//
+// Technical Test for Domain	//
+// 								//
+//////////////////////////////////
+// Defaults
+//////////////////////
+html, body {
+	height: 100%;
+}
+
 body {
+	background: #f9f9f9;
+	font: 100% 'Merriweather Sans', sans-serif;
+}
+
+// Only modifying the box-sizing for these specific elements.
+section, div, input {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+fieldset {
+	border: none;
+	padding: 0;
+	margin: 0 0 $base-padding;
+}
+
+input {
+	border: 1px solid $gray;
+	border-radius: $border-radius;
+	padding: $base-padding / 2;
+	color: $gray-darker;
+	display: block;
+	width: 100%;
+	font-family: 'Merriweather', serif;
+}
+
+label {
+	font-size: $font-small;
+	text-transform: uppercase;
+	color: $color-primary;
+	margin-bottom: $base-padding / 3;
+	display: block;
+}
+
+.row {
+	@extend .clearfix;
+	margin-left: -$base-padding-horizontal;
+	margin-right: -$base-padding-horizontal;
+}
+
+//////////////////////
+//  Helpers
+//////////////////////
+.border-bottom {
+	border-bottom: 1px solid $gray;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+//////////////////////
+// Globals
+//////////////////////
+.wrapper {
+	// Won't work in IE8, will see mobile version
+	@media (min-width: 767px) {
+		height: inherit;
+		display: table;
+	}
+}
+
+.pane {
 	background: #fff;
+	padding: 2em;
+	position: relative;
+
+	&.right-pane {
+		background: #e7e9ec;
+	}
+
+	.pane-title {
+		font-size: $font-xlarge;
+		color: $color-primary;
+		font-weight: 800;
+	}
+
+	@media (min-width: 767px) {
+		height: inherit;
+		display: table-cell;
+		vertical-align: middle;
+		width: 50%;
+	}
+}
+
+//////////////////////
+// Form Elements
+//////////////////////
+.form-group-title {
+	font-size: $font-xsmall;
+	text-transform: uppercase;
+	color: $color-tertiary;
+	padding-bottom: $base-padding / 2;
+	margin-bottom: $base-padding * 2;
+	font-weight: 700;
+}
+
+.form-group {
+	padding: 0 $base-padding-horizontal;
+	margin: 0 0 $base-padding;
+
+	> input, select {
+		width: 100%;
+	}
+
+	@media (min-width: 480px) {
+		@extend .clearfix;
+		width: 50%;
+		float: left;
+	}
+}
+
+.form-buttons {
+	text-align: center;
+	margin: $base-padding 0;
+}
+
+//////////////////////
+// Buttons
+//////////////////////
+.btn {
+	background: $color-secondary;
+	border-radius: $border-radius;
+	padding: ($base-padding / 2) $base-padding * 2;
+	color: #fff;
+	display: inline-block;
+	font-size: $font-large;
+	cursor: pointer;
+	box-shadow: 0 2px 0 darken($color-secondary, 10%);
+
+	&:hover, &:focus {
+		background: lighten($color-secondary, 10%);
+		box-shadow: 0 -2px 0 darken($color-secondary, 10%);
+		position: relative;
+		top: 2px;
+	}
+}
+
+//////////////////////
+// Card Elements
+//////////////////////
+.card-wrapper {
+	margin: 0 auto;
+	width: 95%;
+	max-width: 800px;
+}
+
+.card-wrapper-title {
+	font-size: $font-small;
+	text-transform: uppercase;
+	color: $color-tertiary;
+	font-weight: normal;
+}
+
+.card {
+	background: #fff;
+	width: 100%;
+	box-shadow: 0 2px 0 $gray-dark;
+
+}
+
+.card-detail-group {
+	@extend .clearfix;
+	padding: $base-padding $base-padding-horizontal;		
+}
+
+.card-detail {
+	padding-bottom: $base-padding / 3;
+	border-bottom: 1px solid $gray;
+	margin-bottom: $base-padding / 2;
+	// Limitation with text overflow with table cell.
+	word-wrap: break-all;
+	font-family: 'Merriweather', serif;
+
+	> .title {
+		color: $color-primary;
+		font-size: $font-xsmall;
+		text-transform: uppercase;
+		display: inline-block;
+		width: 80px;
+		font-family: 'Merriweather Sans', sans-serif;
+	}
+
+	@media (min-width: 960px) {
+		&.half-width {
+			width: 50%;
+			float: left;
+		}
+	}
+}
+
+.card-title {
+	margin: 0 0 $base-padding-horizontal;
+	background: $color-primary;
+	height: 3em;
+	line-height: 3em;
+	padding: 0 $base-padding-horizontal;
+	color: #fff;
+	font-family: 'Merriweather', serif;
+	font-weight: 700;
 }

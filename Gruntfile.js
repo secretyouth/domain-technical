@@ -1,14 +1,17 @@
 module.exports = function(grunt) {
-
+    //////////////////////
     // Load Grunt Tasks
+    //////////////////////
     grunt.loadNpmTasks('grunt-libsass');
     grunt.loadNpmTasks('grunt-injector');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
-
+    //////////////////////
     // Config
+    //////////////////////
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         app: {
@@ -16,7 +19,9 @@ module.exports = function(grunt) {
             dist: 'dist'
         },
 
+        //////////////////////
         // Libsass
+        //////////////////////
         libsass: {
             development: {
                 src: '<%= app.client %>/components/styles/main.scss',
@@ -24,7 +29,9 @@ module.exports = function(grunt) {
             }
         },
 
+        //////////////////////
         // Connect
+        //////////////////////
         connect: {
             options: {
                 port: 9000,
@@ -41,7 +48,9 @@ module.exports = function(grunt) {
             }
         },
 
+        //////////////////////
         // Copy
+        //////////////////////
         copy: {
             dev: {
                 expand: true,
@@ -51,10 +60,22 @@ module.exports = function(grunt) {
                 src: [
                     'angular/angular.js'
                 ]
+            },
+            dist: {
+                expand: true,
+                dot: true,
+                cwd: '<%= app.client %>',
+                dest: '<%= app.dist %>',
+                src: [
+                    'main.css',
+                    'index.html'
+                ]
             }
         },
 
+        //////////////////////
         // Watch
+        //////////////////////
         watch: {
             sass: {
                 files: [
@@ -84,7 +105,9 @@ module.exports = function(grunt) {
             }
         },
 
+        //////////////////////
         // Injector
+        //////////////////////
         injector: {
             options: {
 
@@ -94,7 +117,6 @@ module.exports = function(grunt) {
                 options: {
                     transform: function(filePath) {
                         filePath = filePath.replace('/client/', '');
-                        console.log(filePath);
                         return '<script src="' + filePath + '"></script>';
                     },
                     starttag: '<!-- injector:js -->',
@@ -109,7 +131,6 @@ module.exports = function(grunt) {
                 options: {
                     transform: function(filePath) {
                         filePath = filePath.replace('/client/', '');
-                        console.log(filePath);
                         return '<script src="' + filePath + '"></script>';
                     },
                     starttag: '<!-- injector:appjs -->',
@@ -136,12 +157,50 @@ module.exports = function(grunt) {
                     '!<%= app.client %>/components/styles/main.scss'
                     ]
                 }
+            },
+            // Inject build file index.html
+            dist: {
+                options: {
+                    transform: function(filePath) {
+                        filePath = filePath.replace('/dist/', '');
+                        console.log('FILEPATH', filePath);
+                        return '<script src="' + filePath + '"></script>';
+                    },
+                    starttag: '<!-- buildinjector:build -->',
+                    endtag: '<!-- buildinjector -->'
+                },
+                files: {
+                    '<%= app.dist %>/index.html': ['<%= app.dist %>/**/*.js']
+                }
+            }
+        },
+
+        //////////////////////
+        // Uglify
+        //////////////////////
+        uglify: {
+            options: {
+                mangle: false
+                // beautify: true
+            },
+            dist: {
+                files: {
+                    '<%= app.dist %>/app.min.js': [
+                    '<%= app.client %>/components/scripts/angular/angular.js',
+                    '<%= app.client %>/components/**/*.js',
+                    '<%= app.client %>/app.js',
+                    '<%= app.client %>/modules/**/*.js'
+                    ]
+                }
             }
         }
 
     });
-
-    // Default task(s).
-    grunt.registerTask('default', ['injector', 'libsass', 'copy:dev', 'connect', 'watch']);
+    
+    //////////////////////
+    // Default task(s)
+    //////////////////////
+    grunt.registerTask('default', ['injector:externalScripts', 'injector:internalScripts', 'injector:sass', 'libsass', 'copy:dev', 'connect', 'watch']);
+    grunt.registerTask('build', ['copy:dist', 'injector:dist', 'uglify']);
 
 };
